@@ -12,7 +12,7 @@
 
 ## What is this?
 
-**WakaTime for Google Apps Script** is a Chrome extension that automatically tracks the time you spend coding inside [Google Apps Script](https://script.google.com) and reports it directly to your [WakaTime](https://wakatime.com) dashboard — just like any other editor plugin would.
+[**WakaTime for Google Apps Script**](https://wakatime-for-apps-script.vercel.app/) is a Chrome extension that automatically tracks the time you spend coding inside [Google Apps Script](https://script.google.com) and reports it directly to your [WakaTime](https://wakatime.com) dashboard — just like any other editor plugin would.
 
 Once installed, it runs silently in the background. Every time you write or edit code in the Apps Script IDE, a heartbeat is sent to WakaTime and your time gets logged under:
 

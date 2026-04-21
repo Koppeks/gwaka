@@ -30,7 +30,7 @@ function updateStatus(hasKey, tracking) {
     msg.textContent = 'Tracking paused';
   } else if (hasKey) {
     msg.style.color = '#27ae60';
-    msg.textContent = 'Connected to Gwaka';
+    msg.textContent = 'Connected to WakaTime';
   } else {
     msg.style.color = '#888';
     msg.textContent = '';

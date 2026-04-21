@@ -1,6 +1,6 @@
 # Gwaka
 
-![Popup extension](images/popup.png)
+![Popup extension](images/gwakaextension.png)
 
 > Track time across Google Workspace with Gwaka.
 

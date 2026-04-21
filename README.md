@@ -120,7 +120,7 @@ Contributions are welcome! This project is in early development and there's a lo
 1. Fork the repository
 2. Clone your fork
    ```bash
-   git clone https://github.com/YOUR_USERNAME/wakatime-google-apps-script
+   git clone git clone https://github.com/Koppeks/wakatime-gas.git
    ```
 3. Load it unpacked in Chrome (see [local install](#for-now-local-install) above)
 4. Make your changes and test them at [script.google.com](https://script.google.com)

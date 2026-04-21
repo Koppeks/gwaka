@@ -3,33 +3,127 @@
 <head>
   <style>
     body { width: 350px; font-family: 'Segoe UI', Tahoma, sans-serif; padding: 15px; margin: 0; background: #f9f9f9; }
-    h3 { margin: 0 0 10px 0; font-size: 14px; color: #333; display: flex; align-items: center; gap: 8px; }
+    h3 { margin: 0; font-size: 14px; color: #333; display: flex; align-items: center; gap: 8px; }
     .status-dot { width: 8px; height: 8px; background: #bbb; border-radius: 50%; }
     .status-active { background: #27ae60; box-shadow: 0 0 5px #27ae60; }
-    
-    input { 
-      width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ddd; 
+
+    input {
+      width: 100%; padding: 8px; margin-bottom: 0; border: 1px solid #ddd;
       border-radius: 4px; box-sizing: border-box; font-size: 12px;
     }
-    button { 
-      width: 100%; background: #000; color: white; border: none; 
+    button {
+      width: 100%; background: #000; color: white; border: none;
       padding: 8px; border-radius: 4px; cursor: pointer; font-weight: bold;
     }
     button:hover { background: #333; }
     #msg { font-size: 11px; text-align: center; margin-top: 8px; color: #27ae60; min-height: 15px; }
+
+    .section { margin-bottom: 12px; }
+    .section > label { display: block; margin-bottom: 4px; font-size: 12px; }
+
+    .top-bar {
+      display: flex; align-items: center; justify-content: start; gap:12px;
+      position: relative; margin-bottom: 12px;
+    }
+    .icon-btn {
+      width: auto; background: none; color: #000; border: none;
+      padding: 4px 6px; border-radius: 4px; cursor: pointer;
+      font-size: 16px; line-height: 1; font-weight: normal;
+      position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+    }
+    .icon-btn:hover { background: none; }
+    .icon-btn:hover svg path { fill: #555; }
+
+    .view { display: block; }
+    .view.hidden { display: none; }
+
+    .settings-title {
+      font-size: 13px; font-weight: 600; color: #333;
+      margin: 0 0 12px 0; display: flex; align-items: center; gap: 8px;
+    }
+    .back-btn {
+      width: auto; background: none; color: #555; border: none;
+      padding: 2px 6px; border-radius: 4px; cursor: pointer;
+      font-size: 14px; font-weight: normal;
+    }
+    .back-btn:hover { background: #e0e0e0; }
+
+    .env-list { display: flex; flex-direction: column; gap: 6px; }
+    .env-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 10px; background: #fff; border: 1px solid #e0e0e0;
+      border-radius: 6px; cursor: pointer;
+    }
+    .env-item:hover { background: #f0f0f0; }
+    .env-item input[type="checkbox"] { width: auto; margin: 0; cursor: pointer; }
+    .env-label { font-size: 12px; color: #333; flex: 1; user-select: none; }
+    .env-badge {
+      font-size: 10px; color: #888; background: #f0f0f0;
+      padding: 1px 5px; border-radius: 3px;
+    }
+
+    .toggle-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 12px; background: #fff; border: 1px solid #e0e0e0;
+      border-radius: 6px;
+    }
+    .toggle-label { font-size: 12px; font-weight: 600; color: #333; }
+    .toggle-switch { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-track {
+      position: absolute; inset: 0; background: #ccc;
+      border-radius: 20px; cursor: pointer; transition: background 0.2s;
+    }
+    .toggle-track::before {
+      content: ''; position: absolute;
+      width: 14px; height: 14px; left: 3px; top: 3px;
+      background: #fff; border-radius: 50%; transition: transform 0.2s;
+    }
+    .toggle-switch input:checked + .toggle-track { background: #27ae60; }
+    .toggle-switch input:checked + .toggle-track::before { transform: translateX(16px); }
   </style>
 </head>
 <body>
-  <div style="width: 100%; text-align: center; margin-bottom: 10px;">  <img src="icons/WakatimeIcon.svg" alt="WakaTime Logo" style="width: 32px; height: 32px;">
-</div>
-  <h3><div id="dot" class="status-dot"></div> WakaTime Google App Script</h3>
-  <label>Machine Name <i style="color: #555;">optional</i></label>
-  <input type="text" id="hostname" placeholder="Name to identify this machine" value="Browser Google IDE" />
-  <label>Wakatime API Key</label>
-  <input type="password" id="apiKey" placeholder="Paste your API Key here...">
-  <button id="saveBtn">Save API key</button>
-  
-  <div id="msg"></div>
+  <!-- Main view -->
+  <div id="mainView" class="view">
+    <div class="top-bar">
+      <img src="icons/WakatimeIcon.svg" alt="WakaTime Logo" style="width: 32px; height: 32px;">
+      <span style="font-size: 15px; font-weight: 700; color: #333; letter-spacing: 0.5px;">Gwaka</span>
+      <button id="settingsBtn" class="icon-btn" title="Settings">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7895 0C11.6615 0 12.3684 0.706919 12.3684 1.57895V1.91689C13.0007 2.10184 13.6021 2.35884 14.1632 2.67861L14.41 2.43215C15.0265 1.8157 16.0261 1.8157 16.6427 2.43215L17.7593 3.54878C18.3759 4.1654 18.3759 5.16515 17.7593 5.78176L17.4566 6.08424C17.7141 6.5736 17.9248 7.09129 18.0829 7.63158H18.4211C19.2931 7.63158 20 8.3385 20 9.21053V10.7895C20 11.6615 19.2931 12.3684 18.4211 12.3684H18.0829C17.9063 12.9719 17.6638 13.5471 17.3641 14.0861L17.6909 14.413C18.3075 15.0296 18.3075 16.0294 17.6909 16.646L16.5743 17.7624C15.9577 18.379 14.958 18.379 14.3413 17.7624L13.9939 17.4149C13.4816 17.6914 12.9376 17.9164 12.3684 18.0829V18.4211C12.3684 19.2931 11.6615 20 10.7895 20H9.21053C8.3385 20 7.63158 19.2931 7.63158 18.4211V18.0829C7.09129 17.9248 6.5736 17.7141 6.08424 17.4566L5.85012 17.6909C5.23351 18.3075 4.23375 18.3075 3.61714 17.6909L2.50077 16.5743C1.88415 15.9577 1.88415 14.958 2.50077 14.3413L2.67861 14.1632C2.35886 13.6021 2.1021 13.0007 1.91715 12.3684H1.57895C0.706919 12.3684 2.54312e-08 11.6615 0 10.7895V9.21053C0 8.3385 0.706919 7.63158 1.57895 7.63158H1.91715C2.08365 7.06241 2.30829 6.51815 2.58481 6.00586L2.43215 5.85321C1.8157 5.23662 1.8157 4.23706 2.43215 3.62048L3.54878 2.50385C4.1654 1.88726 5.16515 1.88724 5.78176 2.50385L5.9136 2.63569C6.45272 2.3359 7.02803 2.09344 7.63158 1.91689V1.57895C7.63158 0.706919 8.3385 2.54312e-08 9.21053 0H10.7895ZM10 6.31579C7.96527 6.31579 6.31579 7.96527 6.31579 10C6.31579 12.0347 7.96527 13.6842 10 13.6842C12.0347 13.6842 13.6842 12.0347 13.6842 10C13.6842 7.96527 12.0347 6.31579 10 6.31579Z" fill="#000"/>
+        </svg>
+      </button>
+    </div>
+    <div class="section">
+      <div class="toggle-row">
+        <h3><div id="dot" class="status-dot"></div>Status</h3>
+        <label class="toggle-switch">
+          <input type="checkbox" id="enabledToggle">
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+    </div>
+    <div class="section">
+      <label>Machine Name <i style="color: #555;">optional</i></label>
+      <input type="text" id="hostname" placeholder="Name to identify this machine" value="Browser Google IDE" />
+    </div>
+    <div class="section">
+      <label>WakaTime API Key</label>
+      <input type="password" id="apiKey" placeholder="Paste your API Key here...">
+    </div>
+    <button id="saveBtn">Save API key</button>
+    <div id="msg"></div>
+  </div>
+
+  <!-- Settings view -->
+  <div id="settingsView" class="view hidden">
+    <div class="top-bar" style="justify-content: flex-start; margin-bottom: 12px;">
+      <button id="backBtn" class="back-btn" title="Back">&#8592;</button>
+      <span class="settings-title" style="margin: 0 0 0 6px;">Tracked Environments</span>
+    </div>
+    <div class="env-list" id="envList"></div>
+  </div>
 
   <script src="popup.js"></script>
 </body>

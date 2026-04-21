@@ -7,6 +7,8 @@
 ![Status](https://img.shields.io/badge/status-early%20WIP-orange)
 ![Platform](https://img.shields.io/badge/platform-Chrome-blue)
 ![WakaTime](https://img.shields.io/badge/powered%20by-WakaTime-1f8acb)
+![users](https://img.shields.io/chrome-web-store/users/gmpiofbkheibmaofamolbnahecgafkje)
+![GitHub Stars](https://img.shields.io/github/stars/Koppeks/wakatime-gas)
 
 ---
 
@@ -49,7 +51,7 @@ Open [script.google.com](https://script.google.com) and start coding. Time will 
 
 1. Clone or download this repository
    ```bash
-   git clone https://github.com/Koppeks/wakatime-google-apps-script
+   git clone https://github.com/Koppeks/wakatime-gas
    ```
 2. Open Chrome and go to `chrome://extensions`
 3. Enable **Developer mode** (top right toggle)
@@ -128,7 +130,7 @@ Contributions are welcome! This project is in early development and there's a lo
 
 ### Reporting issues
 
-Open an issue on [GitHub Issues](https://github.com/Koppeks/wakatime-google-apps-script/issues) with:
+Open an issue on [GitHub Issues](https://github.com/Koppeks/wakatime-gas/issues) with:
 - What you expected to happen
 - What actually happened
 - Your Chrome version and OS
@@ -141,7 +143,7 @@ Check out the [Wakatime For Apps Script SPA](https://github.com/Koppeks/wakatime
 ## Acknowledgements
 
 - [WakaTime](https://wakatime.com) for their open API and plugin documentation
-- [browser-wakatime](https://github.com/wakatime/browser-wakatime) for reference on how browser-based heartbeats work
+- [browser-wakatime](https://github.com/Koppeks/wakatime-gas) for reference on how browser-based heartbeats work
 
 ---
 

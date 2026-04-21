@@ -98,9 +98,9 @@ async function sendHeartbeat() {
         }
 
         const { file, project, language, editor, category } = getEnvironmentInfo();
-        const ideLabel = editor === 'Google Apps Script' ? 'Google Apps Script web IDE' : 'Google Workspace';
+        const ideLabel = editor === 'Google Apps Script' ? 'Google-Apps-Script-IDE-wakatime' : 'Google-Workspace-wakatime';
         const os = getOSString();
-        const userAgent = `wakatime/24.0.0 (${os}) ${ideLabel}/1.0 google-apps-script-wakatime/1.0.0`;
+        const userAgent = `wakatime/24.0.0 (${os}) ${ideLabel}/1.0.0`;
 
         try {
             const response = await fetch('https://wakatime.com/api/v1/users/current/heartbeats', {
@@ -118,7 +118,7 @@ async function sendHeartbeat() {
                     time: now / 1000,
                     language: language,
                     editor: ideLabel,
-                    plugin: 'google-apps-script-wakatime/1.0.0',
+                    plugin: `${ideLabel}/1.0.0`,
                     user_agent: userAgent,
                 }),
             });

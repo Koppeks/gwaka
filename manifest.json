@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "WakaTime for Google Apps Script",
-  "version": "0.8.3",
-  "description": "Track time inside Google Apps Script editor with WakaTime",
+  "name": "Gwaka",
+  "version": "0.9.0",
+  "description": "Track time inside Google Apps Script editor with Gwaka",
   "icons": {
     "16": "icons/WakatimeIcon16.png",
     "48": "icons/WakatimeIcon48.png",
@@ -15,7 +15,13 @@
   "permissions": ["storage"],
   "content_scripts": [
     {
-      "matches": ["https://script.google.com/*"],
+      "matches": [
+        "https://script.google.com/*",
+        "https://docs.google.com/*",
+        "https://drive.google.com/*",
+        "https://colab.research.google.com/*",
+        "https://sites.google.com/*"
+      ],
       "js": ["content.js", "operatingSystems.js"]
     }
   ]
